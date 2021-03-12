@@ -12,6 +12,7 @@ public:
     }
 };
 
+// TRIE
 class TrieDS{
 private:
     TrieNode* root;
@@ -132,6 +133,7 @@ public:
    }
 };
 
+// function to use CSV file to build TRIE.
 vector<pair<string,int>> readRecordFromFile(string fileName){
     vector<pair<string,int>> record;
     ifstream file;
@@ -147,18 +149,23 @@ vector<pair<string,int>> readRecordFromFile(string fileName){
 
 int main()
 {
+    /**** using source file to build trie ********/
+    // Source data file
     string fileName = "EnglishDictionary.csv";
-    vector<pair<string,int>> input = readRecordFromFile(fileName);
-    TrieDS *myTrie = new TrieDS(input);
+    // building trie from source file
+    vector<pair<string,int>> input1 = readRecordFromFile(fileName);
+    TrieDS *myTrie1 = new TrieDS(input1);
+    // file where serialized format is stored
     freopen ("SERIAL_FORM.txt", "w", stdout);
- 	cout<<myTrie->trieToString()<<endl;
- 	/*
-    int x;
- 	while(cin>>x){
-        string temp;cin>>temp;
-        cout<<myTrie->findWord(temp)<<endl;
- 	}
- 	*/
+ 	cout<<myTrie1->trieToString()<<endl;
+ 	/**********************************************/
+
+
+ 	/******** To use Serialized format ******/
+ 	freopen ("SERIAL_FORM.txt", "r", stdout);
+ 	string input2;cin>>input2;
+ 	TrieDS *myTrie2 = new TrieDS(input2);
+ 	/****************************************/
  	return 0;
 
 }
