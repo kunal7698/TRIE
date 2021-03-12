@@ -70,27 +70,9 @@ public:
         string result = DFS(root, val, temp);
         return result;
     }
-
-////
-// check if a word is in the TRIE
-    bool findWord(const string word){
-        TrieNode* currNode = root;
-        for(int i=0;i<word.length();i++){
-            unordered_map<char, TrieNode*>& childMap = (currNode->children);
-            if(childMap.find(word[i]) == childMap.end()){
-                return false;
-            }
-            else{
-                currNode = childMap[word[i]];
-            }
-        }
-        if(currNode->isValidWord){
-            return true;
-        }
-        return false;
-    }
 };
 
+// function to use CSV file to build TRIE.
 vector<pair<string,int>> readRecordFromFile(string fileName){
     vector<pair<string,int>> record;
     ifstream file;
@@ -105,13 +87,19 @@ vector<pair<string,int>> readRecordFromFile(string fileName){
 
 int main()
 {
+    /**** using source file to build trie ********/
+    // Source data file
     string fileName = "EnglishDictionary.csv";
+    // building trie from source file
     vector<pair<string,int>> input = readRecordFromFile(fileName);
     TrieDS *myTrie = new TrieDS(input);
+    // input based searching to check the availability of a string with
+    // certain fixed ID.
  	int x;
  	while(cin>>x){
-        int temp;cin>>temp;
-        cout<<myTrie->searchWord(temp)<<endl;
+        int ID;
+        cin>>ID;
+        cout<<myTrie->searchWord(ID)<<endl;
  	}
-
+    return 0;
 }
