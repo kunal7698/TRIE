@@ -108,21 +108,21 @@ public:
     }
 
 // check if a word is in the TRIE
-    bool findWord(const string word){
+    pair<bool,int> findWord(const string word){
         TrieNode* currNode = root;
         for(int i=0;i<word.length();i++){
             unordered_map<char, TrieNode*>& childMap = (currNode->children);
             if(childMap.find(word[i]) == childMap.end()){
-                return false;
+                return {false,0};
             }
             else{
                 currNode = childMap[word[i]];
             }
         }
         if(currNode->isValidWord){
-            return true;
+            return {true,currNode->freqOfWord};
         }
-        return false;
+        return {false,0};
     }
 
 // Converts current TRIE into Serialized TRIE.
@@ -162,10 +162,23 @@ int main()
 
 
  	/******** To use Serialized format ******/
- 	freopen ("SERIAL_FORM.txt", "r", stdout);
- 	string input2;cin>>input2;
- 	TrieDS *myTrie2 = new TrieDS(input2);
+ 	//freopen ("SERIAL_FORM.txt", "r", stdout);
+ 	//string input2;cin>>input2;
+ 	//TrieDS *myTrie2 = new TrieDS(input2);
  	/****************************************/
+
+ 	/******* to check if some word is present in trie ***/
+ 	// enter the word to be searched
+ 	string text;cin>>text;
+ 	pair<bool,int> ans = myTrie1->findWord(text);
+ 	if(ans.first){
+        cout<<"YES "<<ans.second<<endl;
+ 	}
+ 	else{
+        cout<<"NO"<<endl;
+ 	}
+ 	/****************************************************/
+
  	return 0;
 
 }
